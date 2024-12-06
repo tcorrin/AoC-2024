@@ -19,7 +19,6 @@ def process_file(filename):
         rules.append((split[0],split[1]))
 
   for seq in page_seqs:
-#  for seq in page_seqs[3:4]:
     if check_seq(seq, rules):
       correct_results += int(seq[len(seq) // 2])
     else:
@@ -41,16 +40,10 @@ def fix_seq(seq, rules):
     for rule in rules:
       if rule[0] == number and rule[1] in seq[:i]:
         p = seq.index(rule[1])
-        new_seq = seq[:p] + [rule[0]] + [rule[1]] + seq[p+2:]
-#        print(seq)
-#        print(number)
-#        print(seq[:p])
-#        print([rule[0]])
-#        print(seq[p+1:])
-#        print(new_seq)
+        new_seq = seq.remove(number)
+        new_seq = seq[:p] + [rule[0]] + seq[p:]
         return fix_seq(new_seq, rules)
   return seq
-
 
 process_file("day05-example.txt")
 process_file("day05.txt")
